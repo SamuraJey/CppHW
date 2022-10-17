@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-
+// clion test
 int main()
 {
     int num;

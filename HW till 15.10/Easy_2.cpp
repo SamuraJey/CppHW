@@ -2,7 +2,7 @@
 #include <cmath>
 
 using namespace std;
-
+// clion test
 int main()
 {
     int n, k;
