@@ -29,6 +29,7 @@ int main() {
         if(a[i] < s.size()) {
         output << s.substr(a[i],1); //outputing single char from string a in position i
     }
-    return 0;
+    input.close();
+    output.close();
 }
 
