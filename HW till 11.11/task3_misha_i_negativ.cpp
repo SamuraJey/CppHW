@@ -10,6 +10,10 @@ int main()
     string ofilename = "output3.txt";
     ifstream input(filename);
     ofstream output(ofilename);
+    if (!input){
+        std::cout << "Error opening file" << std::endl;
+        return 0;
+    }
 
     int w, h;
     int answ = 0;
@@ -22,9 +26,7 @@ int main()
         input >> str1;
         str2 += str1;
     }
-    //cout << str2 << endl;
     str1 = "";
-
     for (int i = 0; i < h; i++)
     {
         input >> str1;

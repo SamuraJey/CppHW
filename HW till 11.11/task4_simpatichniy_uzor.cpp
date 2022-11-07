@@ -9,6 +9,10 @@ int main()
     string filename = "input4.txt";
     string ofilename = "output4.txt";
     ifstream input(filename);
+    if (!input){
+        std::cout << "Error opening file" << std::endl;
+        return 0;
+    }
     ofstream output(ofilename);
     string str1, str2;
     int ploho = 0;
@@ -25,10 +29,6 @@ int main()
         test2 = str2[i+1];
         test3 = str2[i+4];
         test4 = str2[i+5];
-        //test5 = str2[i+5];
-        //test6 = str2[i+6];
-        //if (str2[i] == str2[i+1] == str2[i+4] == str2[i+5]) {
-        
         if (test1.compare(test2) == 0 && test3.compare(test4) == 0 && test1.compare(test4) == 0){
             ploho++;
         }
