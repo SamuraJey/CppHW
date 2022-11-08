@@ -1,10 +1,10 @@
-    #include <iostream>
-    #include <string>
-    #include <fstream>
-    using namespace std;
-     
-int main() {
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
 
+
+int main() {
     string filename = "input7.txt";
     string ofilename = "output7.txt";
     ifstream input(filename);
@@ -21,6 +21,7 @@ int main() {
     input >> n;
     string t_char = "ABCEHKMOPTXY"; //АВСЕНКМОРТХУ
     string t_digit = "0123456789";
+    
     for(int i = 0; i < n; ++i){
         input >> str;
         if(str.size() != 6) {
