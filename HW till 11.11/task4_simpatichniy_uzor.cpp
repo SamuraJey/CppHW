@@ -22,23 +22,26 @@ int main()
     {
         input >> str1;
         str2 += str1;
+        //cout << str2 << endl;
     }
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 11; i++)
     {
         test1 = str2[i];
         test2 = str2[i+1];
         test3 = str2[i+4];
         test4 = str2[i+5];
-        if (test1.compare(test2) == 0 && test3.compare(test4) == 0 && test1.compare(test4) == 0){
+        if (test1.compare(test2) == 0 && test3.compare(test4) == 0 && test1.compare(test3) == 0 && test2.compare(test4) == 0 && test1.compare(test4) == 0 && test2.compare(test3) == 0){
             ploho++;
         }
     }
     if (ploho > 0)
     {
         output << "No";
+        cout << "НЕЕЕЕЕЕЕТ" << endl;
     } else 
     {
         output << "Yes";
+        cout << "ДААААААА" << endl;
     }
     
     input.close();
