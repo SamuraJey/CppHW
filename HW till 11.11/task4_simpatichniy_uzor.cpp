@@ -37,11 +37,11 @@ int main()
     if (ploho > 0)
     {
         output << "No";
-        cout << "НЕЕЕЕЕЕЕТ" << endl;
+        //cout << "НЕЕЕЕЕЕЕТ" << endl;
     } else 
     {
         output << "Yes";
-        cout << "ДААААААА" << endl;
+        //cout << "ДААААААА" << endl;
     }
     
     input.close();
