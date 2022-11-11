@@ -24,7 +24,7 @@ int main()
         str2 += str1;
         //cout << str2 << endl;
     }
-    for (int i = 0; i < 11; i++)
+    for (int i = 0; i < 12; i++)
     {
         test1 = str2[i];
         test2 = str2[i+1];
