@@ -42,7 +42,6 @@ int main() {
             } 
         }
 
-    //if (y)  output << "YES"; else output << "NO";
     if (y) {
         output << "YES"; 
     } 
