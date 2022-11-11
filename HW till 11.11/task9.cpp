@@ -32,12 +32,12 @@ int main()
 
     while (!input1.eof())
     {
-        //cout << var1 << "before" << endl;
+        
         input1 >> var1;
         if ((j % 10) == 0 && (j != 0))
         {
             output << arr[((j+1) / 10)] << endl << endl;
-            //j++;
+            
         }
         if (var1 > 0)
         {
@@ -49,9 +49,7 @@ int main()
         {
             continue;
         }
-        //cout << endl;
-        //cout << answ << endl;
-    
+
     }
 
     while (!input2.eof())
@@ -73,12 +71,11 @@ int main()
         {
             continue;
         }
-        //cout << endl;
-        //cout << answ << endl;
     
     }
 
     input1.close();
     input2.close();
     output.close();
+    return 0;
 }
