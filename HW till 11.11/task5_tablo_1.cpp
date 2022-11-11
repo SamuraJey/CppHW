@@ -48,7 +48,7 @@ int main() {
     } 
     else {
         output << "NO";
-    }
+    } 
     input.close();
     output.close();
 }

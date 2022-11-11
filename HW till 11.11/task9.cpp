@@ -14,12 +14,6 @@ int main()
     ifstream input2(filename2);
     ofstream output(filename3);
 
-    /*
-    ifstream input1("in1");
-    ifstream input2("in2");
-    ofstream output("ou");
-    */
-
     if (!input1 || !input2){
         std::cout << "Error opening files" << std::endl;
         return 0;
@@ -54,12 +48,10 @@ int main()
 
     while (!input2.eof())
     {
-        //cout << var1 << "before" << endl;
         input2 >> var2;
         if ((j % 10) == 0 && (j != 0))
         {
             output << arr[((j+1) / 10)] << endl << endl;
-            //j++;
         }
         if (var2 > 0)
         {
