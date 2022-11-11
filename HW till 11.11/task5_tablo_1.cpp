@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <fstream>
@@ -28,13 +28,27 @@ int main() {
     for (int z = 0; z < n; z++)
         for (int x = 0; x < m; x++) {
             input >> c;
-            if (l[z][x] == '.') y = y;
-            if (l[z][x] == 'B') y = y && (c == 1 || c == 3 || c == 5 || c == 7);
-            if (l[z][x] == 'G') y = y && (c == 2 || c == 3 || c == 6 || c == 7);
-            if (l[z][x] == 'R') y = y && (c == 4 || c == 5 || c == 6 || c == 7);
+            if (l[z][x] == '.') {
+                y = y;
+            } 
+            if (l[z][x] == 'B') {
+                y = y && (c == 1 || c == 3 || c == 5 || c == 7);
+            }
+            if (l[z][x] == 'G') {
+                y = y && (c == 2 || c == 3 || c == 6 || c == 7);
+            } 
+            if (l[z][x] == 'R') {
+                y = y && (c == 4 || c == 5 || c == 6 || c == 7);
+            } 
         }
 
-    if (y)  output << "YES"; else output << "NO";
+    //if (y)  output << "YES"; else output << "NO";
+    if (y) {
+        output << "YES"; 
+    } 
+    else {
+        output << "NO";
+    }
     input.close();
     output.close();
 }
