@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string Convert(int end_base, int num) // Функция перевода из десятичной системы счисления в сс с основанием end_base
+string Convert(int end_base, int num) //Функция перевода из десятичной системы счисления в сс с основанием end_base
 {
     string alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     string res = "";
