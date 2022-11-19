@@ -24,7 +24,6 @@ int main()
     int counter1 = 0;
     int counter2 = 0;
     int counter3 = 0;
-    bool flag = 1;
     input >> n;
     vector <string> arr(n);
 
@@ -37,7 +36,6 @@ int main()
     {
         if (mystr.size() % 3 != 0) {
             output << "NO" << endl;
-            flag = 0;
             continue;
         }
         for (int k = 0; k < mystr.size() - 1; k++)
@@ -49,7 +47,6 @@ int main()
             if (int(mystr[k]) > (mystr[k + 1])) 
             {
                 output << "NO" << endl;
-                flag = 0;
                 continue;
             }
         }
@@ -77,7 +74,6 @@ int main()
         }
         else 
         {
-            flag = 0;
             output << "NO" << endl;
             continue;
         }
