@@ -85,5 +85,7 @@ int main() {
             }
     }
     output << uf;
+    input.close();
+    output.close();
     return 0;
 }

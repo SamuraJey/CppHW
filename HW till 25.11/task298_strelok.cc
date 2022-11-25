@@ -69,7 +69,7 @@ int main(int argc, char const *argv[])
         answ += is_hit[i];
     }
     output << answ;
-    
-
+    input.close();
+    output.close();
     return 0;
 }
