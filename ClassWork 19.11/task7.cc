@@ -5,8 +5,6 @@ using namespace std;
 
 int main()
 {
-    double x, y, n, pp ,pp1,pp2; // pp = answ
-
     double people_quantity, orig_raiting, target_raiting, answ, people_min, people_max, people;
     int sum_of_reviews;
 
