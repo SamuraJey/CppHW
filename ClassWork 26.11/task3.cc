@@ -9,7 +9,7 @@ task: Loops3. Если все числа натурального ряда за�
 #include <string>
 
 using namespace std;
-
+ 
 int main(int argc, char const *argv[])
 {
     int counter = 0, len = 0, position;
