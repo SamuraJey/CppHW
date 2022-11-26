@@ -3,8 +3,7 @@
 
 using namespace std; 
 
-int main()
-{
+int main(){
     double people_quantity, orig_raiting, target_raiting, answ, people_min, people_max, people;
     int sum_of_reviews;
 
