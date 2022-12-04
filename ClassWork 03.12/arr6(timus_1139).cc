@@ -7,11 +7,11 @@ int nod(int a, int b)
     while (a > 0 && b > 0)
         if (a > b)
         {
-            a = a%b;
+            a = a % b;
         }
         else
         {
-            b = b%a;
+            b = b % a;
         }
 
     return a + b;
@@ -28,8 +28,8 @@ int main () {
         return 0;
     }
 
-    int gcd = nod(m, n);
-    int res = n + m - gcd;
+    int pre_res = nod(m, n);
+    int res = n + m - pre_res;
     printf("%d", res);
 
     return 0;
