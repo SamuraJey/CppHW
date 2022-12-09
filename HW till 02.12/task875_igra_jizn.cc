@@ -18,7 +18,7 @@ int main()
 
     for (int t = 0; t < k; t++)
     {
-        for (int i = 0;i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             for (int x = 0; x < m; x++)
             {
@@ -46,9 +46,9 @@ int main()
             l[i] = l1[i]; // делаем копию
         }
     }
-    for (int i = 0; i < n; i++)
+    for (auto i : l)
     {
-        cout << l[i] << endl;
+        cout << i << endl;
     }
 
     return 0;
