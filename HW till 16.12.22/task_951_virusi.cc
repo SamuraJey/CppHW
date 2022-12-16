@@ -6,12 +6,12 @@ int main() {
     int n, m, k;
     cin >> n >> m >> k;
 
-    vector <int> x(k);
-    vector <int> y(k);
+    vector <int> arr1(k);
+    vector <int> arr2(k);
 
     int min, max;
 
-    for (int i = 0; i < k; i++) cin >> x[i] >> y[i];
+    for (int i = 0; i < k; i++) cin >> arr1[i] >> arr2[i];
     max = 0;
     for (int i=0; i<n; i++)
     {
@@ -20,7 +20,7 @@ int main() {
             min = n + m;
             for (int z = 0; z < k; z++)
             {
-                int d = abs(i - x[z]+1) + abs(j - y[z]+1);
+                int d = abs(i - arr1[z]+1) + abs(j - arr2[z]+1);
                 if (min > d) min = d;
             }
             if (min > max)
