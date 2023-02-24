@@ -1,30 +1,30 @@
-3) https://acmp.ru/index.asp?main=task&id_task=7    
+3) https://acmp.ru/index.asp?main=task&id_task=7    DONE
 
-14) https://acmp.ru/index.asp?main=task&id_task=30 
+14) https://acmp.ru/index.asp?main=task&id_task=30  DONE
 
-8) https://acmp.ru/index.asp?main=task&id_task=70
+8) https://acmp.ru/index.asp?main=task&id_task=70   DONE
 
-2) https://acmp.ru/index.asp?main=task&id_task=208 
+2) https://acmp.ru/index.asp?main=task&id_task=208  DONE
 
-6) https://acmp.ru/index.asp?main=task&id_task=235
+6) https://acmp.ru/index.asp?main=task&id_task=235  DONE
 
-12) https://acmp.ru/index.asp?main=task&id_task=330
+12) https://acmp.ru/index.asp?main=task&id_task=330 DONE
 
-1) https://acmp.ru/index.asp?main=task&id_task=399
+1) https://acmp.ru/index.asp?main=task&id_task=399  DONE
 
-10) https://acmp.ru/index.asp?main=task&id_task=398
+10) https://acmp.ru/index.asp?main=task&id_task=398 DONE
 
-4) https://acmp.ru/index.asp?main=task&id_task=664
-5) https://acmp.ru/index.asp?main=task&id_task=664
+4)
+5) https://acmp.ru/index.asp?main=task&id_task=664  DONE
 
-11) https://acmp.ru/index.asp?main=task&id_task=682
+11) https://acmp.ru/index.asp?main=task&id_task=682 DONE
 
 
-13) https://acmp.ru/index.asp?main=task&id_task=716
+13) https://acmp.ru/index.asp?main=task&id_task=716 DONE
 
-9) https://acmp.ru/index.asp?main=task&id_task=779
+9) https://acmp.ru/index.asp?main=task&id_task=779  DONE
 
-15)https://acmp.ru/index.asp?main=task&id_task=793
+15)https://acmp.ru/index.asp?main=task&id_task=793  DONE
 
 7) https://acmp.ru/index.asp?main=task&id_task=969
 
