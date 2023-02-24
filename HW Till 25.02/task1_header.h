@@ -1,8 +1,9 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-extern int global_var = 123;
-const extern int const_global_var = 934;
+int global_var = 123;
+const int const_global_var = 934;
 
 extern int task3_1 = 778;
 extern int task3_2 = 665;

@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 #include "task1_header.h"
 
 using namespace std;
