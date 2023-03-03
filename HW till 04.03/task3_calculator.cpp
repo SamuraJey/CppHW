@@ -1,12 +1,12 @@
 #include <iostream>
 
 using namespace std;
-
+/* Калькулятор не умеет в порядок действий и выполняет все действия слева направо */
 int main()
 {
     int res;
     cin >> res;
-    while (1)
+    while (True)
     {
         int tmp;
         char op;
