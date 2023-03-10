@@ -1,0 +1,14 @@
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/excel_read.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/list_install_components.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/install.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/install/local.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/CMakeFiles/install/strip.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/OpenXLSX.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/edit_cache.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/rebuild_cache.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/list_install_components.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/install.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/install/local.dir
+/home/samuraj/CLionProjects/excel_read/cmake-build-debug/OpenXLSX/CMakeFiles/install/strip.dir
