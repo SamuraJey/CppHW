@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ int main()
 
     vector<vector<int>> cost(1 + n, vector<int>(1 + n));
 
-for (size_t len = 1; i <= n; len++)
+for (size_t len = 1; len <= n; len++)
 {
     for (size_t left = 1; left + len - 1 <= n; left++)
     {
@@ -28,13 +29,13 @@ for (size_t len = 1; i <= n; len++)
         }
         else
         {
-            int min = 1000 * 1000 * 1000;
+            int minimal = 1000 * 1000 * 1000;
             for (size_t right1 = left; right1 < right; right1++)
             {
                 int left2 = right1 + 1;
-                min = min(min, cost[left][right1] + cost[left2][right]);
+                minimal = min(minimal, (cost[left][right1] + cost[left2][right]));
             }
-            cost[left][right] = min + leftPar[left] * rightPar[right];
+            cost[left][right] = minimal + leftPar[left] * rightPar[right];
         }
     }
 }
