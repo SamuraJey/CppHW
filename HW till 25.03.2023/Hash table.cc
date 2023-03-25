@@ -119,7 +119,7 @@ int main() {
 
     cout << hashTable.Get("John") << endl;
     cout << hashTable.Get("Mary") << endl;
-    //cout << hashTable.Get("Bob") << endl;
+    cout << hashTable.Get("Bob") << endl;
     hashTable.Remove("Bob");
     cout << hashTable.Get("Bob") << endl;
 
