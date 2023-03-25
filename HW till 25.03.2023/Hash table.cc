@@ -24,8 +24,6 @@ private:
         for (int i = 0; i < key.length(); i++) 
         {
             hash += key[i];
-            //cout << "key[i] = " << key[i] << endl;
-            //cout << "hash = " << hash << endl;
         }
         return hash % size;
     }
@@ -44,7 +42,7 @@ public:
     }
 
     //добавление элемента в хеш-таблицу
-    void put(string key, int value)
+    void Put(string key, int value)
     {
         if (count == size)
         {
@@ -64,42 +62,67 @@ public:
     }
 
     //поиск элемента в хеш-таблице по ключу
-    int Get(string key) {
-    int index = Hash(key);
-    int startIndex = index;
-    while (table[index].key != "" && table[index].key != key) {
-        index = (index + 1) % size;
-        if (index == startIndex) {
-            // достигнут начальный индекс - элемент не найден. Выглядит как какой-то костыль, но другое не придумалось(
+    int Get(string key) 
+    {
+        int index = Hash(key);
+        int startIndex = index;
+        while (table[index].key != "" && table[index].key != key) 
+        {
+            index = (index + 1) % size;
+            if (index == startIndex) 
+            {
+                // достигнут начальный индекс - элемент не найден
+                return -1;
+            }
+        }
+        if (table[index].key == "")
+        {
+            // элемент не найден
             return -1;
         }
+        return table[index].value;
     }
-    if (table[index].key == "")
+
+    //удаление элемента из хеш-таблицы
+    void Remove(string key)
     {
-        // элемент не найден
-        return -1;
+        int index = Hash(key);
+        int startIndex = index;
+        while (table[index].key != "" && table[index].key != key)
+        {
+            index = (index + 1) % size;
+            if (index == startIndex)
+            {
+                // достигнут начальный индекс - элемент не найден
+                return;
+            }
+        }
+        if (table[index].key == "")
+        {
+            // элемент не найден
+            return;
+        }
+        table[index].key = "";
+        table[index].value = -1;
+        count--;
     }
-    return table[index].value;
-}
 };
 
 int main() {
 
     HashTable hashTable(4);
 
-    hashTable.put("John", 35);
-    hashTable.put("Mary", 27);
-    hashTable.put("Bob", 42);
-    hashTable.put("Johne", 35);
+    hashTable.Put("John", 35);
+    hashTable.Put("Mary", 27);
+    hashTable.Put("Bob", 42);
+    hashTable.Put("Johne", 35);
 
     cout << hashTable.Get("John") << endl;
     cout << hashTable.Get("Mary") << endl;
+    //cout << hashTable.Get("Bob") << endl;
+    hashTable.Remove("Bob");
     cout << hashTable.Get("Bob") << endl;
-    cout << hashTable.Get("Johne") << endl;
-    cout << hashTable.Get("David") << endl;
-    cout << hashTable.Get("John") << endl;
-    cout << hashTable.Get("John") << endl;
-    cout << hashTable.Get("John") << endl;
+
 
     return 0;
 }
