@@ -12,6 +12,8 @@ int main()
     {
         sequence = char('a' + i) + sequence + sequence; // добавляем новую букву слева и удваиваем строку
     }
+    //cout << sequence << endl;
     cout << sequence[n - 1] << endl;
     return 0;
+    //оно так то работет, просто памяти много жрёт =))
 }
