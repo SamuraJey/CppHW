@@ -16,7 +16,8 @@ int max_visible_points(double x, double y, double r, vector<pair<double, double>
                     double angle2 = atan2(points[i].second - y, points[i].first - x);
                     double angle = angle1 - angle2;
                     if (angle < 0) angle += 2 * M_PI;
-                    if (angle <= M_PI && dist >= sqrt(pow(points[j].first - x, 2) + pow(points[j].second - y, 2))) {
+                    if (angle <= M_PI && dist >= sqrt(pow(points[j].first - x, 2) + pow(points[j].second - y, 2)))
+                    {
                         count++;
                     }
                 }

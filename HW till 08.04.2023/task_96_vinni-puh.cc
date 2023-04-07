@@ -25,12 +25,13 @@ vector<vector<int>> spiral_matrix(int m, int n) {
 }
 
 int main() {
-    int m = 0, 
-    n = 0;
+    int m = 0;
+    int n = 0;
     int x = 0;
     int y = 0;
-    cin >> n >> m >> y >> x;
+    cin >> m >> n >> y >> x;
     vector<vector<int>> matrix = spiral_matrix(m, n);
+
     
     std::cout << matrix[y-1][x-1] << std::endl;
 
