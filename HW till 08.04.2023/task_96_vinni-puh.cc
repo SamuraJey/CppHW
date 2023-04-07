@@ -3,46 +3,37 @@
 
 using namespace std;
 
-int main() {
-    int N, M, Y, X;
-    cin >> N >> M >> Y >> X;
-
-    int row = 1, col = 1;
-    int dir = 1; // 1 - right, 2 - down, 3 - left, 4 - up
+vector<vector<int>> spiral_matrix(int m, int n) {
+    vector<vector<int>> matrix(m, vector<int>(n, 0));
     int count = 0;
+    int i = 0, j = 0;
+    int di = 0, dj = 1;
 
-    while (!(row == Y && col == X && dir == 1))
+    for (int k = 0; k < m * n; k++) 
     {
         count++;
-        if (dir == 1) {
-            col++;
-            if (col > M) {
-                dir = 2;
-                col--;
-            }
-        } else if (dir == 2) {
-            row++;
-            if (row > N) {
-                dir = 3;
-                row--;
-            }
-        } else if (dir == 3) {
-            col--;
-            if (col < 1) {
-                dir = 4;
-                col++;
-            }
-        } else if (dir == 4) 
-        {
-            row--;
-            if (row < 1) {
-                dir = 1;
-                row++;
-            }
+        matrix[i][j] = count;
+        if (matrix[(i+di+m)%m][(j+dj+n)%n] != 0 || (i+di < 0 || i+di >= m || j+dj < 0 || j+dj >= n)) {
+            int temp = di;
+            di = dj;
+            dj = -temp;
         }
+        i += di;
+        j += dj;
     }
+    return matrix;
+}
 
-    cout << count << endl;
+int main() {
+    int m = 0, 
+    n = 0;
+    int x = 0;
+    int y = 0;
+    cin >> n >> m >> y >> x;
+    vector<vector<int>> matrix = spiral_matrix(m, n);
+    
+    std::cout << matrix[y-1][x-1] << std::endl;
 
+    //cout << "Number of cells visited: " << endl;
     return 0;
 }
