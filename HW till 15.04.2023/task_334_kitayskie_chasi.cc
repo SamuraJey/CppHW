@@ -3,13 +3,15 @@
 #include <algorithm>
 using namespace std;
 
-int main() {
+int main() 
+{
     int n;
     cin >> n;
 
     vector<int> seconds(n);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) 
+    {
         int hours, minutes, secs;
         scanf("%d:%d:%d", &hours, &minutes, &secs);
         int timeInSeconds = hours * 3600 + minutes * 60 + secs;
@@ -19,9 +21,11 @@ int main() {
     int bestTime = seconds[0];
     int minTimeDifference = abs(seconds[0] - (2 * 3600 * n));
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) 
+    {
         int timeDifference = abs((2 * 3600 * n) - 2 * seconds[i]);
-        if (timeDifference < minTimeDifference) {
+        if (timeDifference < minTimeDifference) 
+        {
             minTimeDifference = timeDifference;
             bestTime = seconds[i];
         }
@@ -31,11 +35,13 @@ int main() {
     int minutes = (bestTime % 3600) / 60;
     int seconds1 = bestTime % 60;
 
-    if (hours == 0) {
+    if (hours == 0) 
+    {
         hours = 12;
     }
 
-    if (hours > 12) {
+    if (hours > 12) 
+    {
         hours -= 12;
     }
 
