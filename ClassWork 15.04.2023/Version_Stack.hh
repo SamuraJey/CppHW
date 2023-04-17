@@ -26,18 +26,29 @@ public:
         next_version++;
     }
 
-    void Rollback(int version) {
+    void Rollback(int version) 
+    {
+        if (version < 0 || version >= next_version)
+        {
+            return;
+        }
         current_stack = version;
     }
 
-    void Forget() {
+    void Forget() 
+    {
         stacks.clear();
         stacks.push_back(stack<int>());
         current_stack = 0;
         next_version = 1;
     }
 
-    int Top() {
+    int Top()
+    {
+        if (stacks[current_stack].empty())
+        {
+            return -1;
+        }
         return stacks[current_stack].top();
     }
 
