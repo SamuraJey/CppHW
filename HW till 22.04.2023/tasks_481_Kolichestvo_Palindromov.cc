@@ -5,30 +5,46 @@ using namespace std;
 
 int cache[31][31];
 
-int count_palindromes(string& s, int start, int end) {
+int count_palindromes(string& s, int start, int end) 
+{
+    int count = 0;
+
     if (start > end) return 1;
     if (cache[start][end] != -1) return cache[start][end];
 
-    int count = 0;
-    if (s[start] == s[end]) {
+    if (s[start] == s[end]) 
+    {
         count += count_palindromes(s, start+1, end-1);
     }
     count += count_palindromes(s, start+1, end);
     count += count_palindromes(s, start, end-1);
     count -= count_palindromes(s, start+1, end-1);
-
     cache[start][end] = count;
     return count;
 }
 
-int main() {
+int main() 
+{
     string s;
     cin >> s;
 
-    memset(cache, -1, sizeof(cache));
+    memset(cache, -1, sizeof(cache)); // initialize cache with -1
 
-    int count = count_palindromes(s, 0, s.length()-1);
-    cout << count - 1 << endl;
+    int count = count_palindromes(s, 0, s.length()-1); // count palindromes
+    cout << count - 1 << endl; // subtract 1 for the empty string
 
     return 0;
 }
+
+
+/*
+Эта программа использует рекурсивную функцию count_palindromes, которая рекурсивно считает количество палиндромов, которые можно получить путем вычеркивания символов из заданного слова.
+
+Функция count_palindromes принимает строку s, индексы начала и конца подстроки start и end, которую нужно проверить на палиндромность. Функция возвращает количество способов вычеркивания символов из этой подстроки таким образом, чтобы оставшаяся строка была палиндромом.
+
+В этой функции мы сначала проверяем базовые случаи: если подстрока пустая, то возвращаем 1 (так как пустая строка является палиндромом); если в кеше уже есть значение для этой подстроки, то возвращаем его (чтобы избежать повторных вычислений).
+
+Затем мы проверяем, является ли первый и последний символы подстроки одинаковыми. Если да, то мы рекурсивно вызываем count_palindromes для подстроки, где первый и последний символы вычеркнуты, то есть для start+1 и end-1. Мы добавляем результат этого вызова к общему количеству способов.
+
+Затем мы рекурсивно вызываем count_palindromes для подстроки, где первый символ вычеркнут, и для подстроки, где последний символ вычеркнут. Мы добавляем результаты этих вызовов к общему количеству способов. Однако мы также вычитаем из общего количества способов количество палиндромов, которые могут быть получены путем вычеркивания символов из подстроки, где первый и последний символы вычеркнуты. Мы вычитаем и
+*/

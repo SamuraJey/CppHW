@@ -1,31 +1,34 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
-int main() {
+int main() 
+{
     int n;
     cin >> n;
 
     vector<int> a(n);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) 
+    {
         cin >> a[i];
     }
 
-    int penalty = 0;
-    while (a.size() > 2) {
-        int min_penalty = a[1] * (a[0] + a[2]); // штраф для первого числа
-        int min_index = 1; // индекс числа, которое нужно удалить
-        for (int i = 2; i < a.size() - 1; i++) {
-            int p = a[i] * (a[i-1] + a[i+1]); // штраф для текущего числа
-            if (p < min_penalty) {
-                min_penalty = p;
-                min_index = i;
+    vector<vector<int>> dp(n, vector<int>(n));
+    for (int len = 3; len <= n; len++) {
+        for (int i = 0; i + len - 1 < n; i++) 
+        {
+            int j = i + len - 1;
+            dp[i][j] = 1e9;
+            for (int k = j - 1; k > i; k--) 
+            {
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[k][j] + a[k] * (a[i] + a[j]));
             }
         }
-        penalty += min_penalty;
-        a.erase(a.begin() + min_index); // удаление числа
     }
 
-    cout << (penalty + a[0] * a[1]) - 2 << endl;
+    cout << dp[0][n-1] << endl;
+
     return 0;
 }
