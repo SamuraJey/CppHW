@@ -30,7 +30,8 @@ int main() {
             double Si = ai1 * pow(p_value, 2) + ai2 * p_value + ai3;
             int Mi = 0;
             for (int j = 0; j < N; j++) {
-                if (i != j && Si < scores[j].first * pow(p_value, 2) + scores[j].second.first * p_value + scores[j].second.second) {
+                if (i != j && Si <= scores[j].first * pow(p_value, 2) + scores[j].second.first * p_value + scores[j].second.second) {
+
                     Mi++;
                 }
             }
