@@ -2,41 +2,41 @@
 
 using namespace std;
 
-int get_parent(int idx, vector<int> &parent)
+int get_parent(int idx, vector<int> &parent) // Функция поиска родителя
 {
-    if (idx == parent[idx])
+    if (idx == parent[idx]) // Если индекс равен родителю, то возвращаем индекс
     {
         return idx;
     }
-    return parent[idx] = get_parent(parent[idx], parent);
+    return parent[idx] = get_parent(parent[idx], parent); // Иначе возвращаем родителя родителя рекурсивно идя до корня
 }
 
-void merge_set(int a, int b, vector<int> &parent, vector<int> &rnk)
+void merge_set(int a, int b, vector<int> &parent, vector<int> &rnk) // Функция объединения двух множеств
 {
-    a = get_parent(a, parent);
+    a = get_parent(a, parent); // Находим родителей
     b = get_parent(b, parent);
-    if (a != b)
+    if (a != b) // Если они не равны, то объединяем
     {
-        if (rnk[a] < rnk[b])
+        if (rnk[a] < rnk[b]) // Если ранг родителя меньше ранга ребенка, то меняем их местами
         {
             swap(a, b);
         }
-        parent[b] = a;
-        if (rnk[a] == rnk[b])
+        parent[b] = a; // Присваиваем родителю ребенка
+        if (rnk[a] == rnk[b]) // Если ранги равны, то увеличиваем ранг родителя
         {
-            rnk[a]++;
+            rnk[a]++; 
         }
     }
 }
 
-void initialize(int n, vector<int> &parent, vector<int> &rnk)
+void initialize(int n, vector<int> &parent, vector<int> &rnk) // Функция инициализации массивов родителей и рангов
 {
-    parent.resize(n + 1);
-    rnk.resize(n + 1);
-    for (int i = 1; i <= n; i++)
+    parent.resize(n + 1); // Размер массива родителей равен количеству вершин + 1
+    rnk.resize(n + 1); // Размер массива рангов равен количеству вершин + 1
+    for (int i = 1; i <= n; i++) // Присваиваем родителям их индексы
     {
-        parent[i] = i;
-        rnk[i] = 0;
+        parent[i] = i; // Родитель вершины i равен i
+        rnk[i] = 0; // Ранг вершины i равен 0
     }
 }
 
@@ -46,75 +46,82 @@ int main()
     vector <int> rnk;
     int n, d, a;
     cin >> n >> d >> a;
-    vector <string> inpArr(n);
-    initialize(n, parent, rnk);
-    
-    for (int i = 0; i < n; i++)
+    vector <string> inpArr(n); // Массив строк, в котором хранятся ребра графа
+    initialize(n, parent, rnk); // Инициализируем массивы родителей и рангов
+
+    for (int i = 0; i < n; i++) // Вводим граф
     {
         cin >> inpArr[i];
     }
 
-    map<pair<int, int>, bool> added;
+    map <pair <int, int>, bool> added; // Массив пар, в котором хранятся ребра, которые уже были добавлены в ответ
 
-    vector<string> g_ans(n);
+    vector<string> answArr(n); // Массив строк, в котором хранятся ответ
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // Инициализируем массив ответа
     {
-        g_ans[i] = string(n, '0');
+        answArr[i] = string(n, '0');  // Заполняем массив нулями
     }
     long long ans = 0;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) // Проходим по всем ребрам
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < n; j++) // Проходим по всем ребрам
         {
-            if (inpArr[i][j] == '1' and added.find({i, j}) == added.end() and added.find({j, i}) == added.end())
-            {
+            // Если ребро не было добавлено в ответ и ребро не было добавлено в ответ в обратном порядке
+            if (inpArr[i][j] == '1' and added.find({i, j}) == added.end() and added.find({j, i}) == added.end()) 
+            { // Добавляем ребро в ответ
                 added[ {i, j}] = true;
+                // Если родители вершин не равны, то объединяем их
                 if (get_parent(i + 1, parent) != get_parent(j + 1, parent))
                 {
                     merge_set(i + 1, j + 1, parent, rnk);
                 }
                 else
-                {
-                    // cancel the flight
+                { // Иначе добавляем стоимость удаления ребра
                     ans += d;
-                    g_ans[i][j] = 'd';
-                    g_ans[j][i] = 'd';
+                    answArr[i][j] = 'd';
+                    answArr[j][i] = 'd';
                 }
             }
         }
     }
-    vector<int> vis(n + 1, -1);
-    vector<int> rem;
 
+    vector<int> parentsOf(n + 1, -1); // Массив, в котором хранятся родители вершин
+    vector<int> notInAnsw; // Массив, в котором хранятся вершины, которые не были добавлены в ответ
+
+    /*
+    цикл по всем вершинам графа
+    для каждой вершины находит корневую
+    Затем в массиве parentsOf соответствующий элемент, 
+    помечается как 1. 
+    после выполнения массив parentsOf будет содержать информацию
+    о том, какие вершины корни деревьев в лесу.
+    */
     for (int i = 1; i <= n; i++)
     {
-        vis[get_parent(i, parent)] = 1;
+        parentsOf[get_parent(i, parent)] = 1; // Присваиваем родителям 1
     }
-    // rep(i, 1, n + 1)
-    // {
-    //     vis[get_parent(i)] = 1;
-    // }
-
     for (int i = 1; i <= n; i++)
     {
-        if (vis[i] != -1)
+        if (parentsOf[i] != -1) // Если родитель не равен -1, то добавляем его в массив вершин, которые не были добавлены в ответ
         {
-            rem.push_back(i);
+            notInAnsw.push_back(i);
         }
     }
-    for (int i = 1; i < rem.size(); i++)
+    for (int i = 1; i < notInAnsw.size(); i++) // Добавляем в ответ ребра, которые соединяют вершины, которые не были добавлены в ответ
     {
-        g_ans[rem[0] - 1][rem[i] - 1] = 'a';
-        g_ans[rem[i] - 1][rem[0] - 1] = 'a';
+        answArr[notInAnsw[0] - 1][notInAnsw[i] - 1] = 'a';
+        answArr[notInAnsw[i] - 1][notInAnsw[0] - 1] = 'a';
         ans += a;
     }
-    cout << ans << endl;
-    for (int i = 0; i < n; i++)
+
+    cout << ans << endl; 
+    
+    for (int i = 0; i < n; i++) 
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < n; j++) 
         {
-            cout << g_ans[i][j];
+            cout << answArr[i][j]; 
         }
         cout << endl;
     }
