@@ -60,7 +60,7 @@ bool isPassable(const vector<vector<int>>& maze, int row, int col) {
 }
 
 // Поиск кратчайшего пути в лабиринте с телепортами с помощью алгоритма BFS
-int findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
+void findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
     const int numRows = maze.size();
     const int numCols = maze[0].size();
     vector<vector<bool>> visited(numRows, vector<bool>(numCols, false));
@@ -96,7 +96,7 @@ int findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
                 path.push_back(point);
             }
             reverse(path.begin(), path.end());
-            return length;
+            return;
         }
 
 
@@ -149,7 +149,7 @@ int findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
         }
     }
     // Если путь не найден
-    return -1;
+    return;
 }
 
 int main() {
@@ -180,11 +180,11 @@ int main() {
     end.col = endY;
 
 
-    int shortestPathLength = findShortestPath(maze, start, end);
-
+    findShortestPath(maze, start, end);
+    int offSet = 0;
     ofstream output("maze-out.txt");
     // Выводим результат
-    if (shortestPathLength != -1) 
+    if (path.size() != 0) 
     {
         
         output << "Путь до конечной точки: ";
@@ -198,17 +198,17 @@ int main() {
         if (abs(point1.row - point2.row) > 1 || abs(point1.col - point2.col) > 1) 
         {
             // Выполнить нужные действия
-            shortestPathLength--;
+            offSet++;
         }
         }
         output << "(" << path.back().row << ", " << path.back().col << ") " << endl;
-        output << "Кратчайший путь: " << shortestPathLength << endl;
+        output << "Кратчайший путь: " << path.size() - offSet << endl;
     } 
     else 
     {
         output << "Путь не найден." << endl;
     }
-    //cout << path.size() << endl;
+    cout << path.size() << endl;
     return 0;
 }
 
