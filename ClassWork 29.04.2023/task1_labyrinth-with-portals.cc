@@ -28,6 +28,8 @@
 #include <queue>
 #include <fstream>
 #include <utility>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -37,7 +39,15 @@ struct Point
     int col;
 };
 
+struct PathPoint
+{
+    int row;
+    int col;
+    int teleportCount;
+};
+
 int teleportCount = 0;
+vector<PathPoint> path;
 
 // Проверка, является ли данная точка допустимой позицией в лабиринте
 bool isValid(int row, int col, int numRows, int numCols) {
@@ -55,6 +65,7 @@ int findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
     const int numCols = maze[0].size();
     vector<vector<bool>> visited(numRows, vector<bool>(numCols, false));
     vector<vector<Point>> parent(numRows, vector<Point>(numCols, { -1, -1 }));
+    //vector<PathPoint> path;
 
     // Перемещения вокруг текущей точки
     const int dx[] = { -1, 0, 1, 0 };
@@ -72,14 +83,22 @@ int findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
         q.pop();
 
         // Если достигли конечной точки, возвращаем длину пути
+        // Если достигли конечной точки, возвращаем длину пути
         if (current.row == end.row && current.col == end.col) {
             int length = 0;
             while (current.row != start.row || current.col != start.col) {
                 length++;
                 current = parent[current.row][current.col];
+                PathPoint point;
+                point.row = current.row;
+                point.col = current.col;
+                point.teleportCount = teleportCount;
+                path.push_back(point);
             }
+            reverse(path.begin(), path.end());
             return length;
         }
+
 
         // Перебираем все соседние точки
         for (int i = 0; i < 4; i++) 
@@ -161,16 +180,35 @@ int main() {
     end.col = endY;
 
 
-    // Вызываем функцию поиска кратчайшего пути
     int shortestPathLength = findShortestPath(maze, start, end);
 
+    ofstream output("maze-out.txt");
     // Выводим результат
-    if (shortestPathLength != -1) {
-        cout << "Кратчайший путь: " << shortestPathLength << endl;
-    } else {
-        cout << "Путь не найден." << endl;
-    }
+    if (shortestPathLength != -1) 
+    {
+        
+        output << "Путь до конечной точки: ";
+        for (std::size_t i = 0; i < path.size() - 1; ++i) 
+        {
+        const auto& point1 = path[i];
+        const auto& point2 = path[i + 1];
+        output << "(" << point1.row << ", " << point1.col << ") ";
 
+    // Проверить разницу между point1 и point2 по строкам и столбцам
+        if (abs(point1.row - point2.row) > 1 || abs(point1.col - point2.col) > 1) 
+        {
+            // Выполнить нужные действия
+            shortestPathLength--;
+        }
+        }
+        output << "(" << path.back().row << ", " << path.back().col << ") " << endl;
+        output << "Кратчайший путь: " << shortestPathLength << endl;
+    } 
+    else 
+    {
+        output << "Путь не найден." << endl;
+    }
+    //cout << path.size() << endl;
     return 0;
 }
 
