@@ -18,6 +18,11 @@
 
 Считается, что вход и выход не могут быть в стене или на телепорте.
 
+Так как по условию при выходе из телепорта мы беслпатно оказываемся в соседней клетке то пройденный путь и его длина не совпадают.
+и вывод 
+"Путь до конечной точки: (0, 0) (0, 1) (4, 0) (4, 1) (4, 2) (3, 4) 
+Кратчайший путь: 4"
+Правильный, так как в точке 0,1 мы попали в телепорт на точке (4, 0) и вышли из него в точке (4, 1), то же самое в точке (4, 2), там мы выходим в точке (3, 4) и бесплатно шагаем на точку выхода.
 */
 
 
@@ -49,43 +54,44 @@ int teleportCount = 0;
 vector<PathPoint> path;
 
 // Проверка, является ли данная точка допустимой позицией в лабиринте
-bool isValid(int row, int col, int numRows, int numCols) {
+bool isValid(int row, int col, int numRows, int numCols) 
+{
     return (row >= 0) && (row < numRows) && (col >= 0) && (col < numCols);
 }
 
 // Проверка, является ли данная точка проходимой (не стеной)
-bool isPassable(const vector<vector<int>>& maze, int row, int col) {
+bool isPassable(const vector<vector<int>>& maze, int row, int col) 
+{
     return maze[row][col] != 1;
 }
 
 // Поиск кратчайшего пути в лабиринте с телепортами с помощью алгоритма BFS
-void findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
+void findShortestPath(const vector<vector<int>>& maze, Point start, Point end) 
+{
     const int numRows = maze.size();
     const int numCols = maze[0].size();
     vector<vector<bool>> visited(numRows, vector<bool>(numCols, false));
     vector<vector<Point>> parent(numRows, vector<Point>(numCols, { -1, -1 }));
-    //vector<PathPoint> path;
 
     // Перемещения вокруг текущей точки
-    const int dx[] = { -1, 0, 1, 0 };
-    const int dy[] = { 0, 1, 0, -1 };
+    const int diffX[] = { -1, 0, 1, 0 };
+    const int diffY[] = { 0, 1, 0, -1 };
 
-    queue<Point> q;
-    q.push(start);
+    queue<Point> bfsQueue;
+    bfsQueue.push(start);
     visited[start.row][start.col] = true;
 
     int endCellValue = maze[end.row][end.col];  // Значение конечного телепорта
 
-
-    while (!q.empty()) {
-        Point current = q.front();
-        q.pop();
-
+    while (!bfsQueue.empty()) {
+        Point current = bfsQueue.front();
+        bfsQueue.pop();
         // Если достигли конечной точки, возвращаем длину пути
-        // Если достигли конечной точки, возвращаем длину пути
-        if (current.row == end.row && current.col == end.col) {
+        if (current.row == end.row && current.col == end.col) 
+        {
             int length = 0;
-            while (current.row != start.row || current.col != start.col) {
+            while (current.row != start.row || current.col != start.col) 
+            {
                 length++;
                 current = parent[current.row][current.col];
                 PathPoint point;
@@ -97,22 +103,18 @@ void findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
             reverse(path.begin(), path.end());
             return;
         }
-
-
         // Перебираем все соседние точки
         for (int i = 0; i < 4; i++) 
         {
-            int newRow = current.row + dx[i];
-            int newCol = current.col + dy[i];
-
+            int newRow = current.row + diffX[i];
+            int newCol = current.col + diffY[i];
             // Если соседняя точка допустима и не посещена
             if (isValid(newRow, newCol, numRows, numCols) && isPassable(maze, newRow, newCol) && !visited[newRow][newCol]) {
-                q.push({ newRow, newCol });
+                bfsQueue.push({ newRow, newCol });
                 visited[newRow][newCol] = true;
                 parent[newRow][newCol] = current;
             }
         }
-
         // Проверяем, является ли текущая точка телепортом
         int currentCellValue = maze[current.row][current.col];
         if (currentCellValue > 1 && currentCellValue != endCellValue) 
@@ -141,7 +143,7 @@ void findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
             // Проверяем, является ли второй телепорт посещенным
             if (!visited[teleportCoord.first][teleportCoord.second]) 
             {
-                q.push({ teleportCoord.first, teleportCoord.second });
+                bfsQueue.push({ teleportCoord.first, teleportCoord.second });
                 visited[teleportCoord.first][teleportCoord.second] = true;
                 parent[teleportCoord.first][teleportCoord.second] = current;
             }
@@ -154,13 +156,15 @@ void findShortestPath(const vector<vector<int>>& maze, Point start, Point end) {
 int main() {
     // Открываем входной файл
     ifstream input("maze.txt");
-    if (!input) {
-        cerr << "Failed to open the input file." << endl;
+    if (!input.is_open()) 
+    {
+        cerr << "Ошибка при открытии файла" << endl;
         return 1;
     }
 
+    int offSet = 0;
     int numRows, numCols, startX, startY, endX, endY;
-    input >> numRows >> numCols >> startX >> startY >> endX >> endY; 
+    input >> numRows >> numCols >> startX >> startY >> endX >> endY;
 
     // Чтение лабиринта из файла
     vector<vector<int>> maze(numRows, vector<int>(numCols));
@@ -178,27 +182,29 @@ int main() {
     end.row = endX;
     end.col = endY;
 
-
     findShortestPath(maze, start, end);
-    int offSet = 0;
+
     ofstream output("maze-out.txt");
+    if (!output.is_open()) 
+    {
+        cerr << "Ошибка при записи файла" << endl;
+        return 1;
+    }
+
     // Выводим результат
     if (path.size() != 0) 
     {
-        
         output << "Путь до конечной точки: ";
-        for (std::size_t i = 0; i < path.size() - 1; ++i) 
+        for (size_t i = 0; i < path.size() - 1; ++i) 
         {
-        const auto& point1 = path[i];
-        const auto& point2 = path[i + 1];
-        output << "(" << point1.row << ", " << point1.col << ") ";
-
-    // Проверить разницу между point1 и point2 по строкам и столбцам
-        if (abs(point1.row - point2.row) > 1 || abs(point1.col - point2.col) > 1) 
-        {
-            // Выполнить нужные действия
-            offSet++;
-        }
+            const auto& point1 = path[i];
+            const auto& point2 = path[i + 1];
+            output << "(" << point1.row << ", " << point1.col << ") ";
+            // Проверить разницу между point1 и point2 по строкам и столбцам
+            if (abs(point1.row - point2.row) > 1 || abs(point1.col - point2.col) > 1) 
+            {
+                offSet++;
+            }
         }
         output << "(" << path.back().row << ", " << path.back().col << ") " << endl;
         output << "Кратчайший путь: " << path.size() - offSet << endl;
@@ -208,6 +214,9 @@ int main() {
         output << "Путь не найден." << endl;
     }
     cout << path.size() << endl;
+
+    input.close();
+    output.close();
     return 0;
 }
 
