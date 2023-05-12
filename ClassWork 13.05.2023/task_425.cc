@@ -1,10 +1,10 @@
 #include <iostream>
 
-using namespace std;
-
 struct Point
 {
-    int x, y;
+    int x;
+    int y;
+
     Point(int x, int y)
         : x(x), y(y)
     {
@@ -13,7 +13,10 @@ struct Point
 
 struct Line
 {
-    int a, b, c;
+    int a;
+    int b;
+    int c;
+
     Line(const Point &p1, const Point &p2)
         : a(p2.y - p1.y), b(p1.x - p2.x), c(p2.x * p1.y - p1.x * p2.y)
     {
@@ -29,7 +32,7 @@ struct Line
 int main()
 {
     int n, w, e;
-    cin >> n >> w >> e;
+    std::cin >> n >> w >> e;
     Line line(Point{0, w}, Point{100 * n, e});
     int ans = 0;
 
@@ -51,6 +54,6 @@ int main()
             }
         }
     }
-    cout << ans << endl;
+    std::cout << ans << std::endl;
     return 0;
 }
