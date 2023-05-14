@@ -1,59 +1,62 @@
 #include <iostream>
 
-struct Point
+using namespace std;
+
+struct PointAndLine
 {
     int x;
     int y;
-
-    Point(int x, int y)
-        : x(x), y(y)
-    {
-    }
-};
-
-struct Line
-{
     int a;
     int b;
     int c;
 
-    Line(const Point &p1, const Point &p2)
-        : a(p2.y - p1.y), b(p1.x - p2.x), c(p2.x * p1.y - p1.x * p2.y)
+    PointAndLine(int x, int y, int a, int b, int c)
+        : x(x), y(y), a(a), b(b), c(c)
     {
-    }
-
-    int apply(const Point &p) const
-    {
-        int res = a * p.x + b * p.y + c;
-        return res;
     }
 };
 
 int main()
 {
     int n, w, e;
-    std::cin >> n >> w >> e;
-    Line line(Point{0, w}, Point{100 * n, e});
-    int ans = 0;
+    cin >> n >> w >> e;
 
-    for (int i = 1; i <= n; i++)
+    int a = e - w;
+    int b = -100 * n;
+    int c = w * 100 * n;
+    PointAndLine pointAndLine(0, w, a, b, c);
+
+    int ans = 0;
+    for (int i = 1, j = 1; i <= n && j <= n;)
     {
-        for (int j = 1; j <= n; j++)
+        int x = 100 * i;
+        int y = 100 * j;
+
+        PointAndLine p1(x, y, a, b, c);
+        PointAndLine p2(x, y - 100, a, b, c);
+        PointAndLine p3(x - 100, y, a, b, c);
+        PointAndLine p4(x - 100, y - 100, a, b, c);
+
+        int v1 = p1.a * p1.x + p1.b * p1.y + p1.c;
+        int v2 = p2.a * p2.x + p2.b * p2.y + p2.c;
+        int v3 = p3.a * p3.x + p3.b * p3.y + p3.c;
+        int v4 = p4.a * p4.x + p4.b * p4.y + p4.c;
+
+        if (!((v1 > 0 && v2 > 0 && v3 > 0 && v4 > 0) || (v1 < 0 && v2 < 0 && v3 < 0 && v4 < 0)))
         {
-            Point p1{100 * i, 100 * j};
-            Point p2{100 * i, 100 * j - 100};
-            Point p3{100 * i - 100, 100 * j};
-            Point p4{100 * i - 100, 100 * j - 100};
-            int v1 = line.apply(p1);
-            int v2 = line.apply(p2);
-            int v3 = line.apply(p3);
-            int v4 = line.apply(p4);
-            if (!((v1 > 0 && v2 > 0 && v3 > 0 && v4 > 0) || (v1 < 0 && v2 < 0 && v3 < 0 && v4 < 0)))
-            {
-                ans++;
-            }
+            ans++;
+        }
+
+        if (j == n)
+        {
+            i++;
+            j = 1;
+        }
+        else
+        {
+            j++;
         }
     }
-    std::cout << ans << std::endl;
+    cout << ans << endl;
     return 0;
 }
