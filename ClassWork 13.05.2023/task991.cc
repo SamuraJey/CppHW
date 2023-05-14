@@ -3,121 +3,102 @@
 
 using namespace std;
 
-bool mm[100][200]; // наличие куска у клиента
+bool clientHasPiece[100][200]; // наличие куска у клиента
 
-int mk[200], // количество клиентов, у которых есть i -ый кусок
-
-    rk[100], // номер желаемого куска для клиента i
-
-    mn[100], // количество кусков у клиента i
-
-    rn[100], // номер клиента, у которого желает качать клиент i
-
-    qn[100], // номер клиента, которому будет качать клиент i
-
-    mc[100][100], // ценность клиентов
-
-    res[100]; // на каком раунде клиент i закончил скачивание
+int numClientsWithPiece[200], desiredPieceNumOfClient[100], numPiecesOfClient[100], clientFromWhomClientWantsToDownload[100], clientToWhomClientWillDownload[100], clientValue[100][100], clientDownloadCompleteRound[100];
 
 int main()
 {
+    int numClients, numPieces;
+    cin >> numClients >> numPieces;
 
-    int n, k; // число клиентов и число фрагментов
-
-    cin >> n >> k;
-
-    for (int i = 0; i < k; ++i)
-        mm[0][i] = true, mk[i] = 1;
-
-    memset(mc, 0, sizeof(mc)); // заполняем нулями массивы
-
-    memset(mn, 0, sizeof(mn));
-
-    mn[0] = k;
-
-    memset(res, -1, sizeof(res)); // пока не закончили скачивание
-
-    int ck = (n - 1) * k, it = 0; // общее количество скачиваний, кличество итераций
-
-    while (ck)
+    for (int i = 0; i < numPieces; ++i)
     {
-
-        memset(rk, -1, sizeof(rk)); // пока нет желаемых кусков
-
-        for (int i = 0; i < n; ++i) // пройдем по всем клиентам
-
-            for (int j = 0; j < k; ++j) // и всем фрагментам для каждого клиента
-
-                // если у клиента нет этого куска
-
-                // запрашивает фрагмент, который предоставляется наименьшим числом клиентов
-
-                if (!mm[i][j] && (rk[i] < 0 || mk[rk[i]] > mk[j]))
-                    rk[i] = j;
-
-        // этот фрагмент нужен
-
-        memset(rn, -1, sizeof(rn)); // пока не выбрали клиента для закачивания
-
-        for (int i = 0; i < n; ++i)
-        {
-
-            if (rk[i] < 0)
-                continue; // этот фрагмент нам не нужен
-
-            int t = rk[i]; // выбранный фрагмент
-
-            for (int j = 0; j < n; ++j) // ищем, кому будем качать
-
-                if (mm[j][t] && (rn[i] < 0 || mn[rn[i]] > mn[j]))
-                    rn[i] = j;
-        }
-
-        memset(qn, -1, sizeof(qn)); // пока никому не будем качать
-
-        for (int i = 0; i < n; ++i)
-        {
-
-            if (rn[i] < 0)
-                continue; // этот клиент нам не подходит
-
-            int t = rn[i]; // вот это - наш клиент
-
-            if (qn[t] < 0 || // запомним его
-
-                mc[t][qn[t]] < mc[t][i] ||
-
-                (mc[t][qn[t]] == mc[t][i] && mn[qn[t]] > mn[i]))
-                qn[t] = i;
-        }
-
-        for (int i = 0; i < n; ++i)
-        { // пройдем по клиентам, совершим закачку
-
-            if (qn[i] < 0)
-                continue;
-
-            --ck;
-
-            ++mc[qn[i]][i];
-
-            ++mn[qn[i]];
-
-            ++mk[rk[qn[i]]];
-
-            mm[qn[i]][rk[qn[i]]] = true;
-
-            if (mn[qn[i]] == k)
-                res[qn[i]] = it + 1;
-        }
-
-        ++it;
+        clientHasPiece[0][i] = true;
+        numClientsWithPiece[i] = 1;
     }
 
-    // выводим результат
+    memset(clientValue, 0, sizeof(clientValue));
+    memset(numPiecesOfClient, 0, sizeof(numPiecesOfClient));
+    numPiecesOfClient[0] = numPieces;
+    memset(clientDownloadCompleteRound, -1, sizeof(clientDownloadCompleteRound));
 
-    for (int i = 1; i < n; ++i)
-        cout << res[i] << " ";
+    int totalDownloads = (numClients - 1) * numPieces, numIterations = 0;
+    while (totalDownloads)
+    {
+        memset(desiredPieceNumOfClient, -1, sizeof(desiredPieceNumOfClient));
+        for (int i = 0; i < numClients; ++i)
+        {
+            for (int j = 0; j < numPieces; ++j)
+            {
+                if (!clientHasPiece[i][j] && (desiredPieceNumOfClient[i] < 0 || numClientsWithPiece[desiredPieceNumOfClient[i]] > numClientsWithPiece[j]))
+                {
+                    desiredPieceNumOfClient[i] = j;
+                }
+            }
+        }
+
+        // этот фрагмент нужен
+        memset(clientFromWhomClientWantsToDownload, -1, sizeof(clientFromWhomClientWantsToDownload));
+        for (int i = 0; i < numClients; ++i)
+        {
+            if (desiredPieceNumOfClient[i] < 0)
+            {
+                continue; // этот фрагмент нам не нужен
+            }
+
+            int desiredPieceNum = desiredPieceNumOfClient[i];
+            for (int j = 0; j < numClients; ++j)
+            {
+                if (clientHasPiece[j][desiredPieceNum] && (clientFromWhomClientWantsToDownload[i] < 0 || numPiecesOfClient[clientFromWhomClientWantsToDownload[i]] > numPiecesOfClient[j]))
+                {
+                    clientFromWhomClientWantsToDownload[i] = j;
+                }
+            }
+        }
+
+        memset(clientToWhomClientWillDownload, -1, sizeof(clientToWhomClientWillDownload));
+        for (int i = 0; i < numClients; ++i)
+        {
+            if (clientFromWhomClientWantsToDownload[i] < 0)
+            {
+                continue; // этот клиент нам не подходит
+            }
+
+            int clientToDownloadFrom = clientFromWhomClientWantsToDownload[i];
+            if (clientToWhomClientWillDownload[clientToDownloadFrom] < 0 ||
+                clientValue[clientToDownloadFrom][clientToWhomClientWillDownload[clientToDownloadFrom]] < clientValue[clientToDownloadFrom][i] ||
+                (clientValue[clientToDownloadFrom][clientToWhomClientWillDownload[clientToDownloadFrom]] == clientValue[clientToDownloadFrom][i] && numPiecesOfClient[clientToWhomClientWillDownload[clientToDownloadFrom]] > numPiecesOfClient[i]))
+            {
+                clientToWhomClientWillDownload[clientToDownloadFrom] = i;
+            }
+        }
+
+        for (int i = 0; i < numClients; ++i)
+        {
+
+            if (clientToWhomClientWillDownload[i] < 0)
+            {
+                continue;
+            }
+
+            --totalDownloads;
+            ++clientValue[clientToWhomClientWillDownload[i]][i];
+            ++numPiecesOfClient[clientToWhomClientWillDownload[i]];
+            ++numClientsWithPiece[desiredPieceNumOfClient[clientToWhomClientWillDownload[i]]];
+            clientHasPiece[clientToWhomClientWillDownload[i]][desiredPieceNumOfClient[clientToWhomClientWillDownload[i]]] = true;
+            if (numPiecesOfClient[clientToWhomClientWillDownload[i]] == numPieces)
+            {
+                clientDownloadCompleteRound[clientToWhomClientWillDownload[i]] = numIterations + 1;
+            }
+        }
+        ++numIterations;
+    }
+
+    for (int i = 1; i < numClients; ++i)
+    {
+        cout << clientDownloadCompleteRound[i] << " ";
+    }
 
     return 0;
 }
