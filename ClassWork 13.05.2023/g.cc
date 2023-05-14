@@ -6,14 +6,13 @@ using namespace std;
 
 int main()
 {
-    // открытие файлов для чтения и записи
-
     int N;
     cin >> N;
 
     // нахождение числа, состоящего из N цифр 1
     string ones(N, '1');
-    long long number = stoll(ones);
+    cout << ones << endl;
+    unsigned long long number = stoull(ones);
 
     // перебор чисел, полученных заменой цифр на 2
     while (number % (1 << N) != 0)
@@ -31,7 +30,7 @@ int main()
                 ones[i] = '1';
             }
         }
-        number = stoll(ones);
+        number = stoull(ones);
     }
 
     // вывод результата в выходной файл
