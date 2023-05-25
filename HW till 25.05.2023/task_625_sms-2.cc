@@ -30,9 +30,9 @@ int main()
     std::vector<int> charToButtonNum(128, -1);
 
     // Инициализируем переменные
-    const int LOWER_BOUND = 1;
-    const int UPPER_BOUND = 2;
-    const int FIRST_CHAR = 3;
+    const int LOWER_BOUND = 1; // стейт нижнего регистра
+    const int UPPER_BOUND = 2; // стейт верхнего регистра
+    const int FIRST_CHAR = 3; // стейт первого символа
     int state = FIRST_CHAR;
     int lastButton = 0;
     int count = 0;
