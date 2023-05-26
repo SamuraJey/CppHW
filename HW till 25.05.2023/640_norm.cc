@@ -4,22 +4,6 @@
 
 using namespace std;
 
-// Поворот матрицы на 90 градусов против часовой стрелки
-vector<vector<char>> rotateMatrixCounterClockwise(vector<vector<char>> matrix)
-{
-    int rows = (int)matrix.size();
-    int cols = (int)matrix[0].size();
-    vector<vector<char>> result(cols, vector<char>(rows));
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            result[cols - 1 - j][i] = matrix[i][j];
-        }
-    }
-    return result;
-}
 
 // Отражение матрицы по горизонтали
 vector<vector<char>> mirrorMatrixHorizontally(vector<vector<char>> matrix)
@@ -36,6 +20,23 @@ vector<vector<char>> mirrorMatrixHorizontally(vector<vector<char>> matrix)
         }
     }
 
+    return result;
+}
+
+// Поворот матрицы на 90 градусов против часовой стрелки
+vector<vector<char>> rotateMatrixCounterClockwise(vector<vector<char>> matrix)
+{
+    int rows = (int)matrix.size();
+    int cols = (int)matrix[0].size();
+    vector<vector<char>> result(cols, vector<char>(rows));
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            result[cols - 1 - j][i] = matrix[i][j];
+        }
+    }
     return result;
 }
 

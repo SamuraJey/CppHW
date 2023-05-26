@@ -3,8 +3,8 @@ using namespace std;
 #define L vector
 typedef L<L<char>> V;
 typedef L<char> H;
-#define S(a) a.size()
 typedef int D;
+#define S(a) a.size()
 #define J return
 #define F(i, c, j) for(i; c; j++)
 
