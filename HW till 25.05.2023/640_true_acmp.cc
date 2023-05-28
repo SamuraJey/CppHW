@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef vector<char> H;
-typedef vector<H> V;
-typedef int D;
+#define H vector<char>
+#define V vector<H>
+#define D int
 #define S(a) a.size()
 #define J return
 #define F(i, c, j) for (i; c; j++)
