@@ -5,7 +5,7 @@ using namespace std;
 #define D int
 #define S(a) a.size()
 #define J return
-#define F(i, c, j) for (D i=0; c ; j++)
+#define F(i, c) for (D i=0; i < c ; i++)
 #define P a[i][j]
 
 V R()
@@ -13,8 +13,8 @@ V R()
     D p, f;
     cin >> p >> f;
     V a(p, H(f));
-    F(i, i < p, i)
-    F(j, j < f, j)
+    F(i, p)
+    F(j, f)
     cin >> P;
     J a;
 }
@@ -24,8 +24,8 @@ V d(V a)
     D p = S(a), f = S(a[0]);
     V r(f, H(p));
 
-    F(i, i < p, i)
-    F(j, j < f, j)
+    F(i, p)
+    F(j, f)
     r[j][i] = P;
     J r;
 }
@@ -35,25 +35,21 @@ V h(V a)
     D p = S(a), f = S(a[0]);
     V r(p, H(f));
 
-    F(i, i < p, i)
-    F(j, j < f, j)
+    F(i, p)
+    F(j, f)
     r[p - 1 - i][j] = P;
     J r;
 }
 
 V R(V a)
 {
-    D p = S(a), f = S(a[0]);
-    D s = p, z = -1, q = f, l = -1;
+    D p = S(a), f = S(a[0]), s = p, z = -1, q = f, l = -1;
 
-    F(i, i < p, i)
-    F(j, j < f, j)
+    F(i, p)
+    F(j, f)
     if (P == '#')
     {
-        s = min(s, i);
-        q = min(q, j);
-        z = max(z, i);
-        l = max(l, j);
+        s = min(s, i), q = min(q, j), z = max(z, i), l = max(l, j);
     }
     if (z == -1)
         J V();
@@ -72,10 +68,10 @@ V T(V a)
 main()
 {
     V a = R(R()), b = R(R());
-    F(i, i < 2, i)
+    F(i, 2)
     {
         a = h(a);
-        F(j, j < 4, j)
+        F(j, 4)
         {
             a = T(a);
             if (a == b)
