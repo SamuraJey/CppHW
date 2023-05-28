@@ -6,6 +6,7 @@ using namespace std;
 #define S(a) a.size()
 #define J return
 #define F(i, c, j) for (i; c; j++)
+#define P a[i][j]
 
 V R()
 {
@@ -14,7 +15,7 @@ V R()
     V a(p, H(f));
     F(D i = 0, i < p, i)
     F(D j = 0, j < f, j)
-    cin >> a[i][j];
+    cin >> P;
     J a;
 }
 
@@ -24,8 +25,8 @@ V d(V a)
     V r(f, H(p));
 
     F(D i = 0, i < p, i)
-    F(D k = 0, k < f, k)
-    r[k][i] = a[i][k];
+    F(D j = 0, j < f, j)
+    r[j][i] = P;
     J r;
 }
 
@@ -36,7 +37,7 @@ V h(V a)
 
     F(D i = 0, i < p, i)
     F(D j = 0, j < f, j)
-    r[p - 1 - i][j] = a[i][j];
+    r[p - 1 - i][j] = P;
     J r;
 }
 
@@ -47,7 +48,7 @@ V R(V a)
 
     F(D i = 0, i < p, i)
     F(D j = 0, j < f, j)
-    if (a[i][j] == '#')
+    if (P == '#')
     {
         s = min(s, i);
         q = min(q, j);
@@ -59,7 +60,7 @@ V R(V a)
     V r(z - s + 1, H(l - q + 1));
     F(D i = s, i <= z, i)
     F(D j = q, j <= l, j)
-    r[i - s][j - q] = a[i][j];
+    r[i - s][j - q] = P;
     J r;
 }
 
